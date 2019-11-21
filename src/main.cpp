@@ -1,8 +1,13 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
+int vec_add_simple();
+
 //========================================================================
 int main( ){
+
+	vec_add_simple();
+
 	ofSetupOpenGL(1024,768,OF_WINDOW);			// <-------- setup the GL context
 
 	// this kicks off the running of my app

@@ -16,7 +16,8 @@ Project{
             'src/ofApp.cpp',
             'src/ofApp.h',
             'matrix.cpp',
-            'matrix.h'
+            'matrix.h',
+            'vec-add-simple.cpp'
         ]
 
         of.addons: [

@@ -104,8 +104,8 @@
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-PROJECT_CFLAGS = -lOpenCL -lm
-
+PROJECT_CFLAGS = -fpermissive
+PROJECT_LDFLAGS += -lOpenCL
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS
 #   These are lists of CFLAGS that are target-specific.  While any flags could 
