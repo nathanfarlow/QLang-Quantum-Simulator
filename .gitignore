@@ -2,6 +2,10 @@
 # Created by https://www.gitignore.io/api/xcode,visualstudio,openframeworks,openframeworks+visualstudio
 # Edit at https://www.gitignore.io/?templates=xcode,visualstudio,openframeworks,openframeworks+visualstudio
 
+.idea/
+cmake-build-debug/
+
+
 ### OpenFrameworks ###
 # ignore generated binaries
 # but not the data folder
