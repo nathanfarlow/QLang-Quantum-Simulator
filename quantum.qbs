@@ -15,6 +15,8 @@ Project{
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',
+            'matrix.cpp',
+            'matrix.h'
         ]
 
         of.addons: [
