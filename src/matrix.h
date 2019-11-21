@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrixexecutor.h"
+#include "matrixevaluator.h"
 
 #include <vector>
 
@@ -11,7 +11,7 @@ class Matrix {
 
     T *data_;
 
-    MatrixExecutor<T> executor;
+    MatrixEvaluator<T> evaluator_;
 public:
 
     Matrix(const std::vector<size_t> &dimensions);
@@ -23,5 +23,5 @@ public:
 
     T& operator[](size_t index);
 
-    void set_executor(MatrixExecutor<T> e);
+    void set_evaluator(MatrixEvaluator<T> e);
 };
