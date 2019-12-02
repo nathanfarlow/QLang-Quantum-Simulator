@@ -12,8 +12,7 @@ class Matrix {
     MatrixProcessor<T> processor_;
 public:
 
-    Matrix(const std::vector<std::vector<T>> &data)
-        : data_(data) {}
+    Matrix(const std::vector<std::vector<T>> &data);
 
     Matrix(size_t num_rows, size_t num_cols);
 
