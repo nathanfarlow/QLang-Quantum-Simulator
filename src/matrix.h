@@ -7,19 +7,17 @@
 template<typename T>
 class Matrix {
     size_t total_elements_;
-    const std::vector<size_t> &dimensions;
-
-    T *data_;
+    const std::vector<std::vector<T>> data_;
 
     MatrixProcessor<T> processor_;
 public:
 
-    Matrix(const std::vector<size_t> &dimensions);
+    Matrix(const std::vector<std::vector<T>> &data)
+        : data_(data) {}
 
-    Matrix(size_t rows, size_t cols)
-        : Matrix({rows, cols}) {}
+    Matrix(size_t num_rows, size_t num_cols);
 
-    ~Matrix();
+    ~Matrix() {}
 
     T& operator[](size_t index);
 

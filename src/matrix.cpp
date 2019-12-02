@@ -1,16 +1,10 @@
 #include "matrix.h"
 
 template <typename T>
-Matrix<T>::Matrix(const std::vector<size_t> &dimensions) {
-    total_elements_ = 1;
-    for(size_t dimension : dimensions)
-        total_elements_ *= dimension;
-    data_ = new T[total_elements_];
-}
-
-template <typename T>
-Matrix<T>::~Matrix() {
-    delete[] data_;
+Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
+	data_(num_rows);
+	for(auto row : data_)
+		row(num_cols);
 }
 
 template <typename T>
