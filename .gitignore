@@ -5,6 +5,8 @@
 .idea/
 cmake-build-debug/
 
+*.sublime-project
+*.sublime-workspace
 
 ### OpenFrameworks ###
 # ignore generated binaries
