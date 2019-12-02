@@ -7,7 +7,7 @@
 template<typename T>
 class Matrix {
     size_t num_rows_, num_cols_;
-    const std::vector<std::vector<T>> data_;
+    std::vector<std::vector<T>> data_;
 
     MatrixProcessor<T> *processor_;
 public:

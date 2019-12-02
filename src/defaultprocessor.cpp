@@ -34,3 +34,8 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::tensor(const Matrix<T> &m1, const Matrix<T> &m2) {
     
 }
+
+template <typename T>
+DefaultProcessor<T>::~DefaultProcessor() {
+
+}
