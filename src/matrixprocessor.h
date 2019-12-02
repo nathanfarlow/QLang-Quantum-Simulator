@@ -3,7 +3,7 @@ template <typename T>
 class Matrix;
 
 template <typename T>
-class MatrixEvaluator {
+class MatrixProcessor {
     virtual Matrix<T> add(const Matrix<T> &m, const T &val) = 0;
     virtual Matrix<T> add(const Matrix<T> &m1, const Matrix<T> &m2) = 0;
 
@@ -17,7 +17,7 @@ class MatrixEvaluator {
 };
 
 template <typename T>
-class NaiveEvaluator : public MatrixEvaluator<T> {
+class DefaultProcessor : public MatrixProcessor<T> {
     Matrix<T> add(const Matrix<T> &m, const T &val);
     Matrix<T> add(const Matrix<T> &m1, const Matrix<T> &m2);
 

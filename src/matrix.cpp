@@ -19,6 +19,6 @@ T& Matrix<T>::operator[](size_t index) {
 }
 
 template <typename T>
-void Matrix<T>::set_evaluator(MatrixEvaluator<T> e) {
+void Matrix<T>::set_processor(MatrixProcessor<T> e) {
     this->evalulator_ = e;
 }
