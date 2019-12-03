@@ -69,6 +69,5 @@ std::string Matrix<T>::ToString() {
 	}
 
 	//Trim the trailing new line
-	ss.clear();
-	return ss.str();
+	return ss.str().substr(0, ss.str().length() - 1);
 }

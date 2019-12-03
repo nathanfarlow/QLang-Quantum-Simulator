@@ -21,4 +21,19 @@ TEST_CASE("Test constructors") {
             &&  m1[1][0] == 3
             &&  m1[1][1] == 4));
     }
+
+    SECTION("Matrix copy") {
+
+    }
+
+    SECTION("Matrix move") {
+
+    }
+}
+
+TEST_CASE("Test ToString") {
+    Matrix<int> m1({{1, 2},
+                    {3, 4}});
+
+    REQUIRE(m1.ToString() == "1 2\n3 4");
 }
