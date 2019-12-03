@@ -10,7 +10,7 @@ class Matrix {
     size_t num_rows_, num_cols_;
     std::vector<std::vector<T>> data_;
 
-    MatrixProcessor<T> *processor_;
+    std::unique_ptr<MatrixProcessor<T>> processor_;
 public:
 
     Matrix(const std::vector<std::vector<T>> &data);
@@ -22,7 +22,7 @@ public:
     std::vector<T> &operator[](size_t index);
 
     friend class MatrixProcessor<T>;
-    void set_processor(MatrixProcessor<T> *e);
+    void set_processor(std::unique_ptr<MatrixProcessor<T>> processor);
 
     std::string ToString();
 

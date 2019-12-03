@@ -3,7 +3,6 @@
 
 template <typename T>
 Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
-	processor_ = nullptr;
 
 	const size_t num_rows = data.size();
 
@@ -25,7 +24,6 @@ Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
 
 template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
-	processor_ = nullptr;
 
 	data_.resize(num_rows);
 	for(auto row : data_)
@@ -37,8 +35,7 @@ Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
 
 template <typename T>
 Matrix<T>::~Matrix() {
-	if(processor_ != nullptr)
-		delete processor_;
+
 }
 
 template <typename T>
@@ -47,8 +44,8 @@ std::vector<T> &Matrix<T>::operator[](size_t index) {
 }
 
 template <typename T>
-void Matrix<T>::set_processor(MatrixProcessor<T> *e) {
-    this->processor_ = e;
+void Matrix<T>::set_processor(std::unique_ptr<MatrixProcessor<T>> processor) {
+    this->processor_ = processor;
 }
 
 template <typename T>
