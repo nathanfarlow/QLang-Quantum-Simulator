@@ -26,6 +26,32 @@ public:
     
     std::vector<T> &operator[](size_t index);
 
+    Matrix<T> add(const T &val)                 {return processor_->add(*this, val);}
+    Matrix<T> add(const Matrix<T> &val)         {return processor_->add(*this, val);}
+
+    Matrix<T> sub(const T &val)                 {return processor_->sub(*this, val);}
+    Matrix<T> sub(const Matrix<T> &val)         {return processor_->sub(*this, val);}
+
+    Matrix<T> mul(const T &val)                 {return processor_->mul(*this, val);}
+    Matrix<T> mul(const Matrix<T> &val)         {return processor_->mul(*this, val);}
+
+    Matrix<T> tensor(const Matrix<T> &val)      {return processor_->tensor(*this, val);}    
+
+    Matrix<T> operator+(const T &val)           {return add(val);}
+    Matrix<T> operator+(const Matrix<T> &val)   {return add(val);}
+    void operator+=(const T &val)               {*this = add(val);}
+    void operator+=(const Matrix<T> &val)       {*this = add(val);}
+
+    Matrix<T> operator-(const T &val)           {return sub(val);}
+    Matrix<T> operator-(const Matrix<T> &val)   {return sub(val);}
+    void operator-=(const T &val)               {*this = sub(val);}
+    void operator-=(const Matrix<T> &val)       {*this = sub(val);}
+
+    Matrix<T> operator*(const T &val)           {return mul(val);}
+    Matrix<T> operator*(const Matrix<T> &val)   {return mul(val);}
+    void operator*=(const T &val)               {*this = mul(val);}
+    void operator*=(const Matrix<T> &val)       {*this = mul(val);}
+
     void set_processor(std::shared_ptr<MatrixProcessor<T>> processor);
 
     std::string ToString();
