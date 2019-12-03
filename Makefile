@@ -5,7 +5,7 @@ ifneq ($(wildcard config.make),)
 endif
 
 test:
-	$(MAKE) TEST=ON
+	$(MAKE) Debug TEST=ON
 
 # make sure the the OF_ROOT location is defined
 

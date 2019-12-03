@@ -2,6 +2,7 @@
 
 #include "matrixprocessor.h"
 
+#include <string>
 #include <vector>
 
 template<typename T>
@@ -18,10 +19,12 @@ public:
 
     ~Matrix();
 
-    T& operator[](size_t index);
+    std::vector<T> &operator[](size_t index);
 
     friend class MatrixProcessor<T>;
     void set_processor(MatrixProcessor<T> *e);
+
+    std::string ToString();
 
     size_t get_rows() { return num_rows_; }
     size_t get_cols() { return num_cols_; }
