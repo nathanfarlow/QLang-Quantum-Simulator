@@ -5,68 +5,68 @@
 template <typename T>
 Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
 
-	const size_t num_rows = data.size();
+    const size_t num_rows = data.size();
 
-	if(num_rows == 0)
-		throw "Matrix with 0 rows";
+    if(num_rows == 0)
+        throw "Matrix with 0 rows";
 
-	const size_t num_cols = data[0].size();
+    const size_t num_cols = data[0].size();
 
-	for(auto row : data) {
-		if(row.size() != num_cols)
-			throw "Matrix is not rectangular";
-	}
+    for(auto row : data) {
+        if(row.size() != num_cols)
+            throw "Matrix is not rectangular";
+    }
 
-	num_rows_ = num_rows;
-	num_cols_ = num_cols;
+    num_rows_ = num_rows;
+    num_cols_ = num_cols;
 
-	data_ = data;
+    data_ = data;
 
-	processor_ = std::make_shared<DefaultProcessor<T>>();
+    processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
 
-	data_.resize(num_rows);
-	for(auto &row : data_)
-		row.resize(num_cols);
+    data_.resize(num_rows);
+    for(auto &row : data_)
+        row.resize(num_cols);
 
-	num_rows_ = num_rows;
-	num_cols_ = num_cols;
+    num_rows_ = num_rows;
+    num_cols_ = num_cols;
 
-	processor_ = std::make_shared<DefaultProcessor<T>>();
+    processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols, T init) {
 
-	data_.resize(num_rows);
-	for(auto &row : data_)
-		row.resize(num_cols, init);
+    data_.resize(num_rows);
+    for(auto &row : data_)
+        row.resize(num_cols, init);
 
-	num_rows_ = num_rows;
-	num_cols_ = num_cols;
+    num_rows_ = num_rows;
+    num_cols_ = num_cols;
 
-	processor_ = std::make_shared<DefaultProcessor<T>>();
+    processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
 Matrix<T>::Matrix(const Matrix &matrix) {
-	num_rows_ = matrix.num_rows_;
-	num_cols_ = matrix.num_cols_;
+    num_rows_ = matrix.num_rows_;
+    num_cols_ = matrix.num_cols_;
 
-	data_ = matrix.data_;
-	processor_ = matrix.processor_;
+    data_ = matrix.data_;
+    processor_ = matrix.processor_;
 }
 
 template <typename T>
 Matrix<T>::Matrix(Matrix &&matrix) {
-	num_rows_ = matrix.num_rows_;
-	num_cols_ = matrix.num_cols_;
+    num_rows_ = matrix.num_rows_;
+    num_cols_ = matrix.num_cols_;
 
-	data_ = std::move(matrix.data_);
-	processor_ = std::move(matrix.processor_);
+    data_ = std::move(matrix.data_);
+    processor_ = std::move(matrix.processor_);
 }
 
 template <typename T>
@@ -76,48 +76,48 @@ Matrix<T>::~Matrix() {
 
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(const Matrix<T> &matrix) {
-	num_rows_ = matrix.num_rows_;
-	num_cols_ = matrix.num_cols_;
+    num_rows_ = matrix.num_rows_;
+    num_cols_ = matrix.num_cols_;
 
-	data_ = matrix.data_;
-	processor_ = matrix.processor_;
+    data_ = matrix.data_;
+    processor_ = matrix.processor_;
 
-	return *this;
+    return *this;
 }
 
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(Matrix<T> &&matrix) {
-	num_rows_ = matrix.num_rows_;
-	num_cols_ = matrix.num_cols_;
+    num_rows_ = matrix.num_rows_;
+    num_cols_ = matrix.num_cols_;
 
-	data_ = std::move(matrix.data_);
-	processor_ = std::move(matrix.processor_);
+    data_ = std::move(matrix.data_);
+    processor_ = std::move(matrix.processor_);
 
-	return *this;
+    return *this;
 }
 
 template <typename T>
 bool Matrix<T>::operator==(const Matrix<T> &matrix) const {
 
-	//Compare dimensions
-	if(num_rows_ != matrix.num_rows_
-		|| num_cols_ != matrix.num_cols_)
-		return false;
+    //Compare dimensions
+    if(num_rows_ != matrix.num_rows_
+        || num_cols_ != matrix.num_cols_)
+        return false;
 
-	//Compare each element
-	for(size_t i = 0; i < num_rows_; i++) {
-		for(size_t j = 0; j < num_cols_; j++) {
-			if((*this)[i][j] != matrix[i][j])
-				return false;
-		}
-	}
+    //Compare each element
+    for(size_t i = 0; i < num_rows_; i++) {
+        for(size_t j = 0; j < num_cols_; j++) {
+            if((*this)[i][j] != matrix[i][j])
+                return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 template <typename T>
 bool Matrix<T>::operator!=(const Matrix<T> &matrix) const {
-	return !(*this == matrix);
+    return !(*this == matrix);
 }
 
 template <typename T>
@@ -127,23 +127,23 @@ void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
 
 template <typename T>
 std::string Matrix<T>::ToString() const {
-	std::stringstream ss;
-	
-	for(auto row : data_) {
-		bool beginning = true;
+    std::stringstream ss;
+    
+    for(auto row : data_) {
+        bool beginning = true;
 
-		for(auto obj : row) {
+        for(auto obj : row) {
 
-			if(!beginning)
-				ss << " ";
+            if(!beginning)
+                ss << " ";
 
-			ss << obj;
-			beginning = false;
-		}
+            ss << obj;
+            beginning = false;
+        }
 
-		ss << std::endl;
-	}
+        ss << std::endl;
+    }
 
-	//Trim the trailing new line
-	return ss.str().substr(0, ss.str().length() - 1);
+    //Trim the trailing new line
+    return ss.str().substr(0, ss.str().length() - 1);
 }
