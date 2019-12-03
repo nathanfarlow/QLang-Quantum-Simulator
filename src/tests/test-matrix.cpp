@@ -22,12 +22,27 @@ TEST_CASE("Test constructors") {
             &&  m1[1][1] == 4));
     }
 
-    SECTION("Matrix copy") {
+     Matrix<int> m1({{1, 2, 3},
+                     {4, 5, 6}});
 
+    SECTION("Matrix copy") {
+        Matrix<int> m2(m1);
+        REQUIRE(m2.ToString() == "1 2 3\n4 5 6");
+
+        Matrix<int> m3({{1, 2},
+                        {3, 4}});
+        m3 = m1;
+        REQUIRE(m3.ToString() == "1 2 3\n4 5 6");
     }
 
     SECTION("Matrix move") {
+        Matrix<int> m2(std::move(m1));
+        REQUIRE(m2.ToString() == "1 2 3\n4 5 6");
 
+        Matrix<int> m3({{1, 2},
+                        {3, 4}});
+        m3 = std::move(m2);
+        REQUIRE(m3.ToString() == "1 2 3\n4 5 6");
     }
 }
 

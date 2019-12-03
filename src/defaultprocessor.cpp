@@ -2,7 +2,15 @@
 
 template <typename T>
 Matrix<T> DefaultProcessor<T>::add(const Matrix<T> &m, const T &val) {
+	Matrix<T> copy(m);
 
+	for(auto row : copy.data_) {
+		for(auto item : row) {
+			item += val;
+		}
+	}
+
+	return copy;
 }
 
 template <typename T>

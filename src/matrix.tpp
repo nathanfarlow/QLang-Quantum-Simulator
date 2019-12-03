@@ -34,8 +34,48 @@ Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
 }
 
 template <typename T>
+Matrix<T>::Matrix(const Matrix &matrix) {
+	num_rows_ = matrix.num_rows_;
+	num_cols_ = matrix.num_cols_;
+
+	data_ = matrix.data_;
+	processor_ = matrix.processor_;
+}
+
+template <typename T>
+Matrix<T>::Matrix(Matrix &&matrix) {
+	num_rows_ = matrix.num_rows_;
+	num_cols_ = matrix.num_cols_;
+
+	data_ = std::move(matrix.data_);
+	processor_ = std::move(matrix.processor_);
+}
+
+template <typename T>
 Matrix<T>::~Matrix() {
 
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator=(const Matrix<T> &matrix) {
+	num_rows_ = matrix.num_rows_;
+	num_cols_ = matrix.num_cols_;
+
+	data_ = matrix.data_;
+	processor_ = matrix.processor_;
+
+	return *this;
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator=(Matrix<T> &&matrix) {
+	num_rows_ = matrix.num_rows_;
+	num_cols_ = matrix.num_cols_;
+
+	data_ = std::move(matrix.data_);
+	processor_ = std::move(matrix.processor_);
+
+	return *this;
 }
 
 template <typename T>
@@ -44,7 +84,7 @@ std::vector<T> &Matrix<T>::operator[](size_t index) {
 }
 
 template <typename T>
-void Matrix<T>::set_processor(std::unique_ptr<MatrixProcessor<T>> processor) {
+void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
     this->processor_ = processor;
 }
 
