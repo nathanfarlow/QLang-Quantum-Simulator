@@ -26,6 +26,19 @@ Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
 }
 
 template <typename T>
+Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
+
+	data_.resize(num_rows);
+	for(auto &row : data_)
+		row.resize(num_cols);
+
+	num_rows_ = num_rows;
+	num_cols_ = num_cols;
+
+	processor_ = std::make_shared<DefaultProcessor<T>>();
+}
+
+template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols, T init) {
 
 	data_.resize(num_rows);
@@ -84,17 +97,12 @@ Matrix<T> &Matrix<T>::operator=(Matrix<T> &&matrix) {
 }
 
 template <typename T>
-std::vector<T> &Matrix<T>::operator[](size_t index) {
-    return data_[index];
-}
-
-template <typename T>
 void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
     this->processor_ = processor;
 }
 
 template <typename T>
-std::string Matrix<T>::ToString() {
+std::string Matrix<T>::ToString() const {
 	std::stringstream ss;
 
 
