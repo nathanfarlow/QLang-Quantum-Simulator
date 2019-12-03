@@ -17,6 +17,6 @@ public:
 
     virtual Matrix<T> tensor(const Matrix<T> &m1, const Matrix<T> &m2) = 0;
 
-    virtual ~MatrixProcessor() = 0;
+    virtual ~MatrixProcessor() {}
 };
 

@@ -1,3 +1,4 @@
+#include "defaultprocessor.h"
 
 #include <sstream>
 
@@ -20,17 +21,21 @@ Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
 	num_cols_ = num_cols;
 
 	data_ = data;
+
+	processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
-Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
+Matrix<T>::Matrix(size_t num_rows, size_t num_cols, T init) {
 
 	data_.resize(num_rows);
-	for(auto row : data_)
-		row.resize(num_cols);
+	for(auto &row : data_)
+		row.resize(num_cols, init);
 
 	num_rows_ = num_rows;
 	num_cols_ = num_cols;
+
+	processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>

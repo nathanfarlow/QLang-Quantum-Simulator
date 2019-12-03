@@ -15,6 +15,6 @@ public:
     Matrix<T> mul(const Matrix<T> &m1, const Matrix<T> &m2);
 
     Matrix<T> tensor(const Matrix<T> &m1, const Matrix<T> &m2);
-
-    ~DefaultProcessor();
 };
+
+#include "defaultprocessor.tpp"
