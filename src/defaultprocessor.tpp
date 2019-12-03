@@ -110,5 +110,29 @@ Matrix<T> DefaultProcessor<T>::mul(const Matrix<T> &m1, const Matrix<T> &m2) {
 
 template <typename T>
 Matrix<T> DefaultProcessor<T>::tensor(const Matrix<T> &m1, const Matrix<T> &m2) {
-    return Matrix<T>(1, 1, 1);
+    
+    //It's easy to see this grows very large very fast
+    Matrix<T> ret(m1.get_rows() * m2.get_rows(),
+    				m1.get_cols() * m2.get_cols());
+
+    for(size_t m1_row = 0; m1_row < m1.get_rows(); m1_row++) {
+    	for(size_t m1_col = 0; m1_col < m1.get_cols(); m1_col++) {
+
+    		for(size_t m2_row = 0; m2_row < m2.get_rows(); m2_row++) {
+    			for(size_t m2_col = 0; m2_col < m2.get_cols(); m2_col++) {
+
+    				const size_t ret_row = m1_row * m2.get_rows() + m2_row;
+    				const size_t ret_col = m1_col * m2.get_cols() + m2_col;
+
+    				const T ret_value = m1[m1_row][m1_col] * m2[m2_row][m2_col];
+
+    				ret[ret_row][ret_col] = ret_value;
+
+    			}
+    		}
+
+    	}
+    }
+
+    return ret;
 }

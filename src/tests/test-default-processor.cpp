@@ -92,3 +92,16 @@ TEST_CASE("Test multiplication") {
         }
     }
 }
+
+TEST_CASE("Test tensor product") {
+    Matrix<int> m1({{2, 3}});
+    Matrix<int> m2({{4, 6, 3}});
+    REQUIRE(m1.tensor(m2).ToString() == "8 12 6 12 18 9");
+
+    Matrix<int> m3({{0, 1}, {1, 0}});
+    Matrix<int> m4({{1, 1, 1, 0}, {0, 0, 0, 1}});
+    REQUIRE(m3.tensor(m4).ToString() == "0 0 0 0 1 1 1 0\n"
+                                        "0 0 0 0 0 0 0 1\n"
+                                        "1 1 1 0 0 0 0 0\n"
+                                        "0 0 0 1 0 0 0 0");
+}
