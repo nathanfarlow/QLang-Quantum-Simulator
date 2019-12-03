@@ -21,13 +21,11 @@ Matrix<T> DefaultProcessor<T>::add(const Matrix<T> &m1, const Matrix<T> &m2) {
     const size_t rows = m1.get_rows();
     const size_t cols = m1.get_cols();
 
-    const Matrix<T> ret(rows, cols);
+    Matrix<T> ret(rows, cols);
 
     for(size_t i = 0; i < rows; i++) {
         for(size_t j = 0; j < cols; j++) {
-            //Force C++ compiler to choose non const operator
-            T &item = ((std::vector<T>&)ret[i])[j];
-            item = m1[i][j] + m2[i][j];
+            ret[i][j] = m1[i][j] + m2[i][j];
         }
     }
 
@@ -56,13 +54,11 @@ Matrix<T> DefaultProcessor<T>::sub(const Matrix<T> &m1, const Matrix<T> &m2) {
     const size_t rows = m1.get_rows();
     const size_t cols = m1.get_cols();
 
-    const Matrix<T> ret(rows, cols);
+    Matrix<T> ret(rows, cols);
 
     for(size_t i = 0; i < rows; i++) {
         for(size_t j = 0; j < cols; j++) {
-            //Force C++ compiler to choose non const operator
-            T &item = ((std::vector<T>&)ret[i])[j];
-            item = m1[i][j] - m2[i][j];
+            ret[i][j] = m1[i][j] - m2[i][j];
         }
     }
 
