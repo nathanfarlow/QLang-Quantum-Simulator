@@ -71,7 +71,15 @@ Matrix<T> DefaultProcessor<T>::sub(const Matrix<T> &m1, const Matrix<T> &m2) {
 
 template <typename T>
 Matrix<T> DefaultProcessor<T>::mul(const Matrix<T> &m, const T &val) {
-	return Matrix<T>(1, 1, 1);
+	Matrix<T> ret(m);
+
+	for(auto &row : ret.data_) {
+		for(auto &item : row) {
+			item = item - val;
+		}
+	}
+
+	return ret;
 }
 
 template <typename T>

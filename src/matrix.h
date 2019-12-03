@@ -54,6 +54,9 @@ public:
     void operator*=(const T &val)                         {*this = mul(val);}
     void operator*=(const Matrix<T> &val)                 {*this = mul(val);}
 
+    bool operator==(const Matrix<T> &matrix) const;
+    bool operator!=(const Matrix<T> &matrix) const;
+
     void set_processor(std::shared_ptr<MatrixProcessor<T>> processor);
 
     std::string ToString() const;

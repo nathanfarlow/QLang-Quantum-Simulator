@@ -97,6 +97,30 @@ Matrix<T> &Matrix<T>::operator=(Matrix<T> &&matrix) {
 }
 
 template <typename T>
+bool Matrix<T>::operator==(const Matrix<T> &matrix) const {
+
+	//Compare dimensions
+	if(num_rows_ != matrix.num_rows_
+		|| num_cols_ != matrix.num_cols_)
+		return false;
+
+	//Compare each element
+	for(size_t i = 0; i < num_rows_; i++) {
+		for(size_t j = 0; j < num_cols_; j++) {
+			if((*this)[i][j] != matrix[i][j])
+				return false;
+		}
+	}
+
+	return true;
+}
+
+template <typename T>
+bool Matrix<T>::operator!=(const Matrix<T> &matrix) const {
+	return !(*this == matrix);
+}
+
+template <typename T>
 void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
     this->processor_ = processor;
 }
