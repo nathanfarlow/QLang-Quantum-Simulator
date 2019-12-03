@@ -65,3 +65,30 @@ TEST_CASE("Test subtraction") {
 
     }
 }
+
+TEST_CASE("Test multiplication") {
+
+    SECTION("Constant") {
+        Matrix<int> m1({{4, 0}, {1, -9}});
+        auto m2 = m1 * 2;
+
+        REQUIRE(m2.ToString() == "8 0\n2 -18");
+    }
+
+    SECTION("Matrix") {
+        Matrix<int> m1({{3, 4, 2}});
+
+        Matrix<int> m2({{13, 9, 7, 15},
+                        {8, 7, 4, 6},
+                        {6, 4, 0, 3}});
+
+        auto m3 = m1 * m2;
+
+        REQUIRE(m3.ToString() == "83 63 37 75");
+
+        SECTION("Dimension mismatch") {
+            Matrix<int> m4({{1, 2}});
+            REQUIRE_THROWS(m1 * m4);
+        }
+    }
+}

@@ -128,8 +128,7 @@ void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
 template <typename T>
 std::string Matrix<T>::ToString() const {
 	std::stringstream ss;
-
-
+	
 	for(auto row : data_) {
 		bool beginning = true;
 
