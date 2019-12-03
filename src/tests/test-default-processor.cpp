@@ -34,3 +34,34 @@ TEST_CASE("Test addition") {
     }
 
 }
+
+TEST_CASE("Test subtraction") {
+    Matrix<int> m1({{1, 2}, {3, 4}});
+
+    SECTION("Constant") {
+
+        auto m2 = m1 - 4;
+        REQUIRE(m2.ToString() == "-3 -2\n-1 0");
+
+        m2 -= 5;
+        REQUIRE(m2.ToString() == "-8 -7\n-6 -5");
+    }
+
+    SECTION("Matrix") {
+
+        Matrix<int> m2({{1, 2}, {3, 4}});
+        auto m3 = m1 - m2;
+        REQUIRE(m3.ToString() == "0 0\n0 0");
+
+        m2 = Matrix<int>({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
+        m2 -= m2 - m2;
+
+        REQUIRE(m2.ToString() == "1 1 1\n1 1 1\n1 1 1");
+
+        SECTION("Dimension mismatch") {
+            Matrix<int> m4({{1, 2, 4}, {3, 4, 4}});
+            REQUIRE_THROWS(m1 - m4);
+        }
+
+    }
+}
