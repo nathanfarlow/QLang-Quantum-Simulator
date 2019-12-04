@@ -6,7 +6,7 @@
 
 namespace quantum {
     //Maybe we should increase precision.
-    typedef complex std::complex<float>;
+    typedef std::complex<float> complex;
     //Represents a quantum state
-    typedef QState Matrix<complex>;
+    typedef Matrix<complex> QState;
 }
