@@ -1,7 +1,29 @@
+typedef float2 cfloat;
 
-__kernel void mult(const int num_rows, const int num_cols, const int size,
-                    const __global cfloat_t *first,
-                    const __global cfloat_t *second,
-                    const __global cfloat_t *output) {
+//Add two complex numbers
+inline cfloat cadd(cfloat a, cfloat b) {
+    return a + b;
+}
 
+//Multiply two complex numbers
+inline cfloat cmul(cfloat a, cfloat b) {
+    return (cfloat)(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
+}
+
+__kernel void mul_mat(const int num_rows, const int num_cols, const int elements,
+                    const __global cfloat *first,
+                    const __global cfloat *second,
+                    const __global cfloat *output) {
+
+    //The row that we are working on
+    const int row = get_global_id(0);
+    //The column that we are working on
+    const int col = get_global_id(1);
+
+    //Compute one element in the output based on this row and column
+    cfloat accumulator = (cfloat)(0, 0);
+
+    for(int k = 0; k < elements; k++) {
+        
+    }
 }

@@ -17,6 +17,8 @@ private:
     std::shared_ptr<MatrixProcessor<T>> processor_;
 public:
 
+    Matrix() = delete;
+
     Matrix(const std::vector<std::vector<T>> &data);
     Matrix(size_t num_rows, size_t num_cols);
     Matrix(size_t num_rows, size_t num_cols, T init);
