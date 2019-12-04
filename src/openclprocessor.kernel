@@ -1,3 +1,5 @@
+//https://cnugteren.github.io/tutorial/pages/page3.html
+
 typedef float2 cfloat;
 
 //Add two complex numbers
@@ -7,13 +9,14 @@ inline cfloat cadd(cfloat a, cfloat b) {
 
 //Multiply two complex numbers
 inline cfloat cmul(cfloat a, cfloat b) {
-    return (cfloat)(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
+    return (cfloat)(a.x * b.x - a.y * b.y,
+                    a.x * b.y + a.y * b.x);
 }
 
 __kernel void mul_mat(const int num_rows, const int num_cols, const int elements,
                     const __global cfloat *first,
                     const __global cfloat *second,
-                    const __global cfloat *output) {
+                    __global cfloat *output) {
 
     //The row that we are working on
     const int row = get_global_id(0);
@@ -24,6 +27,12 @@ __kernel void mul_mat(const int num_rows, const int num_cols, const int elements
     cfloat accumulator = (cfloat)(0, 0);
 
     for(int k = 0; k < elements; k++) {
-        
+        cfloat item_in_first_matrix = first[k * num_rows + row];
+        cfloat item_in_second_matrix = second[col * elements + k];
+
+        accumulator = cadd(accumulator, cmul(item_in_first_matrix, item_in_second_matrix));
     }
+
+    //Assign output matrix with value
+    output[col * num_cols + row] = accumulator;
 }
