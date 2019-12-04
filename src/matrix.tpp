@@ -1,52 +1,55 @@
 #include "defaultprocessor.h"
 
 #include <sstream>
+#include <cstring>
 
 template <typename T>
 Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
 
-    const size_t num_rows = data.size();
+    num_rows_ = data.size();
 
-    if(num_rows == 0)
+    if(num_rows_ == 0)
         throw "Matrix with 0 rows";
 
-    const size_t num_cols = data[0].size();
+    num_cols_ = data[0].size();
 
-    for(auto row : data) {
-        if(row.size() != num_cols)
+    data_ = new T[num_rows_ * num_cols_];
+
+    for(size_t row = 0; row < num_rows_; row++) {
+        if(data[row].size() != num_cols_) {
+            delete[] data_;
+            data_ = nullptr;
             throw "Matrix is not rectangular";
+        }
+
+        for(size_t col = 0; col < num_cols_; col++)
+            (*this)[row][col] = data[row][col];
     }
-
-    num_rows_ = num_rows;
-    num_cols_ = num_cols;
-
-    data_ = data;
 
     processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols) {
-
-    data_.resize(num_rows);
-    for(auto &row : data_)
-        row.resize(num_cols);
-
     num_rows_ = num_rows;
     num_cols_ = num_cols;
+
+    data_ = new T[num_rows_ * num_cols_];
 
     processor_ = std::make_shared<DefaultProcessor<T>>();
 }
 
 template <typename T>
 Matrix<T>::Matrix(size_t num_rows, size_t num_cols, T init) {
-
-    data_.resize(num_rows);
-    for(auto &row : data_)
-        row.resize(num_cols, init);
-
     num_rows_ = num_rows;
     num_cols_ = num_cols;
+
+    data_ = new T[num_rows_ * num_cols_];
+
+    for(size_t row = 0; row < num_rows_; row++) {
+        for(size_t col = 0; col < num_cols_; col++)
+            (*this)[row][col] = init;
+    }
 
     processor_ = std::make_shared<DefaultProcessor<T>>();
 }
@@ -56,7 +59,10 @@ Matrix<T>::Matrix(const Matrix &matrix) {
     num_rows_ = matrix.num_rows_;
     num_cols_ = matrix.num_cols_;
 
-    data_ = matrix.data_;
+    delete[] data_;
+    data_ = new T[num_rows_ * num_cols_];
+    std::memcpy(data_, matrix.data_, num_rows_ * num_cols_ * sizeof(T));
+
     processor_ = matrix.processor_;
 }
 
@@ -65,13 +71,16 @@ Matrix<T>::Matrix(Matrix &&matrix) {
     num_rows_ = matrix.num_rows_;
     num_cols_ = matrix.num_cols_;
 
-    data_ = std::move(matrix.data_);
+    data_ = matrix.data_;
+    matrix.data_ = nullptr;
+
     processor_ = std::move(matrix.processor_);
 }
 
 template <typename T>
 Matrix<T>::~Matrix() {
-
+    delete[] data_;
+    data_ = nullptr;
 }
 
 template <typename T>
@@ -79,7 +88,10 @@ Matrix<T> &Matrix<T>::operator=(const Matrix<T> &matrix) {
     num_rows_ = matrix.num_rows_;
     num_cols_ = matrix.num_cols_;
 
-    data_ = matrix.data_;
+    delete[] data_;
+    data_ = new T[num_rows_ * num_cols_];
+    std::memcpy(data_, matrix.data_, num_rows_ * num_cols_ * sizeof(T));
+    
     processor_ = matrix.processor_;
 
     return *this;
@@ -90,11 +102,26 @@ Matrix<T> &Matrix<T>::operator=(Matrix<T> &&matrix) {
     num_rows_ = matrix.num_rows_;
     num_cols_ = matrix.num_cols_;
 
-    data_ = std::move(matrix.data_);
+    std::swap(data_, matrix.data_);
     processor_ = std::move(matrix.processor_);
 
     return *this;
 }
+
+template <typename T>
+T *Matrix<T>::operator[](size_t index) {
+    if(index < 0 || index >= num_rows_)
+        throw "Index out of bounds";
+    return data_ + index * num_cols_;
+}
+
+template <typename T>
+const T *Matrix<T>::operator[](size_t index) const {
+    if(index < 0 || index >= num_rows_)
+        throw "Index out of bounds";
+    return data_ + index * num_cols_;
+}
+
 
 template <typename T>
 bool Matrix<T>::operator==(const Matrix<T> &matrix) const {
@@ -128,16 +155,15 @@ void Matrix<T>::set_processor(std::shared_ptr<MatrixProcessor<T>> processor) {
 template <typename T>
 std::string Matrix<T>::ToString() const {
     std::stringstream ss;
-    
-    for(auto row : data_) {
+
+    for(size_t i = 0; i < num_rows_; i++) {
         bool beginning = true;
 
-        for(auto obj : row) {
-
+        for(size_t j = 0; j < num_cols_; j++) {
             if(!beginning)
                 ss << " ";
 
-            ss << obj;
+            ss << (*this)[i][j];
             beginning = false;
         }
 

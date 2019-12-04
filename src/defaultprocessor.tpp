@@ -4,10 +4,9 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::add(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
-    for(auto &row : ret.data_) {
-        for(auto &item : row) {
-            item = item + val;
-        }
+    for(size_t row = 0; row < m.get_rows(); row++) {
+        for(size_t col = 0; col < m.get_cols(); col++)
+            ret[row][col] += val;
     }
 
     return ret;
@@ -37,10 +36,9 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::sub(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
-    for(auto &row : ret.data_) {
-        for(auto &item : row) {
-            item = item - val;
-        }
+    for(size_t row = 0; row < m.get_rows(); row++) {
+        for(size_t col = 0; col < m.get_cols(); col++)
+            ret[row][col] -= val;
     }
 
     return ret;
@@ -70,10 +68,9 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::mul(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
-    for(auto &row : ret.data_) {
-        for(auto &item : row) {
-            item = item * val;
-        }
+    for(size_t row = 0; row < m.get_rows(); row++) {
+        for(size_t col = 0; col < m.get_cols(); col++)
+            ret[row][col] *= val;
     }
 
     return ret;
@@ -91,7 +88,7 @@ Matrix<T> DefaultProcessor<T>::mul(const Matrix<T> &m1, const Matrix<T> &m2) {
         for(size_t col = 0; col < m2.get_cols(); col++) {
 
             //Compute the dot product on the row and column
-            const size_t num_elements = m1[row].size();
+            const size_t num_elements = m1.get_cols();
             T sum{};
 
             for(size_t i = 0; i < num_elements; i++) {

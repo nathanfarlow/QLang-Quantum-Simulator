@@ -8,11 +8,18 @@
 
 template<typename T>
 class Matrix {
+private:
     size_t num_rows_, num_cols_;
 
+    T *data_ = nullptr;
+
     std::shared_ptr<MatrixProcessor<T>> processor_;
+
+    Matrix() = default;
+
+    void SetupData();
+    void CleanupData();
 public:
-    std::vector<std::vector<T>> data_;
 
     Matrix(const std::vector<std::vector<T>> &data);
     Matrix(size_t num_rows, size_t num_cols);
@@ -26,8 +33,8 @@ public:
     Matrix<T> &operator=(const Matrix<T> &matrix);
     Matrix<T> &operator=(Matrix<T> &&matrix);
     
-    const std::vector<T> &operator[](size_t index)  const {return data_[index];}
-    std::vector<T> &operator[](size_t index)              {return data_[index];}
+    T *operator[](size_t index);
+    const T *operator[](size_t index) const;
 
     Matrix<T> add(const T &val)                     const {return processor_->add(*this, val);}
     Matrix<T> add(const Matrix<T> &val)             const {return processor_->add(*this, val);}
