@@ -15,6 +15,6 @@ private:
 public:
 	OpenCLProcessor(std::string source_file);
 
-    QState mul(const QState &m1, const QState &m2);
-    QState tensor(const QState &m1, const QState &m2);
+    virtual QState mul(const QState &m1, const QState &m2);
+    virtual QState tensor(const QState &m1, const QState &m2);
 };

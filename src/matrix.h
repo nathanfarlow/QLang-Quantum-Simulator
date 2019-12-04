@@ -13,12 +13,8 @@ private:
 
     T *data_;
 
+    //The processor used to compute matrix operations
     std::shared_ptr<MatrixProcessor<T>> processor_;
-
-    Matrix() = default;
-
-    void SetupData();
-    void CleanupData();
 public:
 
     Matrix(const std::vector<std::vector<T>> &data);
@@ -45,6 +41,7 @@ public:
     Matrix<T> mul(const T &val)                     const {return processor_->mul(*this, val);}
     Matrix<T> mul(const Matrix<T> &val)             const {return processor_->mul(*this, val);}
 
+    //Compute the tensor product
     Matrix<T> tensor(const Matrix<T> &val)          const {return processor_->tensor(*this, val);}    
 
     Matrix<T> operator+(const T &val)               const {return add(val);}

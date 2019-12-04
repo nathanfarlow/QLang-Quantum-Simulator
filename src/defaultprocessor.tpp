@@ -4,6 +4,7 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::add(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
+    //Apply operation to each element
     for(size_t row = 0; row < m.get_rows(); row++) {
         for(size_t col = 0; col < m.get_cols(); col++)
             ret[row][col] += val;
@@ -36,6 +37,7 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::sub(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
+    //Apply operation to each element
     for(size_t row = 0; row < m.get_rows(); row++) {
         for(size_t col = 0; col < m.get_cols(); col++)
             ret[row][col] -= val;
@@ -68,6 +70,7 @@ template <typename T>
 Matrix<T> DefaultProcessor<T>::mul(const Matrix<T> &m, const T &val) {
     Matrix<T> ret(m);
 
+    //Apply operation to each element
     for(size_t row = 0; row < m.get_rows(); row++) {
         for(size_t col = 0; col < m.get_cols(); col++)
             ret[row][col] *= val;

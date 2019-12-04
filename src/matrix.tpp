@@ -9,7 +9,7 @@ Matrix<T>::Matrix(const std::vector<std::vector<T>> &data) {
     num_rows_ = data.size();
 
     if(num_rows_ == 0)
-        throw "Matrix with 0 rows";
+        throw "Matrix has 0 rows";
 
     num_cols_ = data[0].size();
 
@@ -120,7 +120,6 @@ const T *Matrix<T>::operator[](size_t index) const {
         throw "Index out of bounds";
     return data_ + index * num_cols_;
 }
-
 
 template <typename T>
 bool Matrix<T>::operator==(const Matrix<T> &matrix) const {
