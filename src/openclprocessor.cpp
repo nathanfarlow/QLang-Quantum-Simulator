@@ -114,12 +114,8 @@ QState OpenCLProcessor::mul(const QState &m1, const QState &m2) {
     clReleaseMemObject(m1_buf);
     clReleaseMemObject(m2_buf);
     clReleaseMemObject(ret_buf);
-    
-    return ret;
-}
 
-QState OpenCLProcessor::tensor(const QState &m1, const QState &m2) {
-    return DefaultProcessor::tensor(m1, m2);
+    return ret;
 }
 
 OpenCLProcessor::~OpenCLProcessor() {

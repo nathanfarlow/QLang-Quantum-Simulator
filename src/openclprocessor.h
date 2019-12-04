@@ -17,7 +17,7 @@ private:
 	cl_program program_;
 	cl_command_queue queue_;
 	cl_context context_;
-	
+
 	cl_kernel mult_kernel_;
 
 	//Load the source from source_file_ as a string
@@ -27,5 +27,4 @@ public:
 	virtual ~OpenCLProcessor();
 
     virtual QState mul(const QState &m1, const QState &m2);
-    virtual QState tensor(const QState &m1, const QState &m2);
 };
