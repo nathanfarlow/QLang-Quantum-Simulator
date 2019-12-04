@@ -59,7 +59,6 @@ Matrix<T>::Matrix(const Matrix &matrix) {
     num_rows_ = matrix.num_rows_;
     num_cols_ = matrix.num_cols_;
 
-    delete[] data_;
     data_ = new T[num_rows_ * num_cols_];
     std::memcpy(data_, matrix.data_, num_rows_ * num_cols_ * sizeof(T));
 

@@ -11,7 +11,7 @@ class Matrix {
 private:
     size_t num_rows_, num_cols_;
 
-    T *data_ = nullptr;
+    T *data_;
 
     std::shared_ptr<MatrixProcessor<T>> processor_;
 
