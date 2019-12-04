@@ -1,0 +1,7 @@
+
+__kernel void mult(const int num_rows, const int num_cols, const int size,
+                    const __global cfloat_t *first,
+                    const __global cfloat_t *second,
+                    const __global cfloat_t *output) {
+
+}

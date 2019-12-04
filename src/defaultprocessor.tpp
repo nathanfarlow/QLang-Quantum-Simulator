@@ -1,3 +1,4 @@
+#include <cstddef>
 
 template <typename T>
 Matrix<T> DefaultProcessor<T>::add(const Matrix<T> &m, const T &val) {

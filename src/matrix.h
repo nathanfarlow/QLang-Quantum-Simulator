@@ -1,9 +1,10 @@
 #pragma once
 
-#include "matrixprocessor.h"
-
 #include <string>
 #include <vector>
+#include <memory>
+
+#include "matrixprocessor.h"
 
 template<typename T>
 class Matrix {

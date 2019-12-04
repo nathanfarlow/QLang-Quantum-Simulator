@@ -6,10 +6,15 @@
 using quantum::complex;
 using quantum::QState;
 
-class OpenClProcessor : public DefaultProcessor<complex> {
+class OpenCLProcessor : public DefaultProcessor<complex> {
+private:
+	std::string source_file_;
+
+	//Load the source from source_file_ as a string
+	std::string LoadSource();
 public:
+	OpenCLProcessor(std::string source_file);
+
     QState mul(const QState &m1, const QState &m2);
     QState tensor(const QState &m1, const QState &m2);
 };
-
-#include "openclprocessor.tpp"
