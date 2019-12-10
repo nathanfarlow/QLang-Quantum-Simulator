@@ -112,7 +112,7 @@ namespace quantum {
 
                 //Apply swap gates to apply cnot or other n ary gates
                 size_t control = num_qubits_ - op.q1 - 1;
-                size_t changer = num_qubits_ - op.q1 - 1;
+                size_t changer = num_qubits_ - op.q2 - 1;
 
                 bool at_bottom = false;
 
