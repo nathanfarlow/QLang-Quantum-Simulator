@@ -13,7 +13,5 @@ TEST_CASE("Simple script parsing") {
 
 	QCircuit *c = parser.Compile(program);
 
-	REQUIRE(c->Compute().ToString() == "asdf");
-
 	delete c;
 }
