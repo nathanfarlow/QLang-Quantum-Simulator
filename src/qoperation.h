@@ -7,43 +7,25 @@
 
 namespace quantum {
 
-    struct QOperation {
+    struct QDefintion {
         std::string id;
         size_t num_parameters;
         QState op;
 
-        QOperation(std::string id, size_t num_parameters, QState op)
+        QDefintion(std::string id, size_t num_parameters, QState op)
             : id(id), num_parameters(num_parameters), op(op) {}
+
+        QDefintion() : op(1, 1) {}
     };
 
-    std::unordered_map<std::string, QOperation> operations = {
+    struct QOperation {
+        QDefintion op;
+        size_t q1, q2;
 
-        //Identity matrix
-        {"ID", QOperation("ID", 1, QState({{1, 1},
-                                           {1, 1}}))},
-
-        //Controlled not
-        {"CNOT", QOperation("CNOT", 2, QState({{1, 0, 0, 0},
-                                               {0, 1, 0, 0},
-                                               {0, 0, 0, 1},
-                                               {0, 0, 1, 0}}))},
-
-        //Hadamard gate
-        {"H", QOperation("H", 1, QState({{1, -1},
-                                         {1, 1}}) * (1.0/sqrt(2)))},
-
-        //Pauli X operator
-        //Also the not operator
-        {"X", QOperation("X", 1, QState({{0, 1},
-                                         {1, 0}}))},
-
-        //Pauli Y operator
-        {"Y", QOperation("Y", 1, QState({{0, complex(0, -1)},
-                                         {complex(0, 1), 0}}))},
-
-        //Pauli Z operator
-        {"Z", QOperation("Z", 1, QState({{1, 0},
-                                         {0, -1}}))}
+        QOperation(QDefintion op, size_t q1, size_t q2)
+            : op(op), q1(q1), q2(q2) {}
     };
+
+    extern std::unordered_map<std::string, QDefintion> definitions;
 
 }
