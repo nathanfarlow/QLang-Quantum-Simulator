@@ -19,11 +19,11 @@ namespace quantum {
     };
 
     struct QOperation {
-        QDefintion op;
+        QDefintion def;
         size_t q1, q2;
 
-        QOperation(QDefintion op, size_t q1, size_t q2)
-            : op(op), q1(q1), q2(q2) {}
+        QOperation(QDefintion def, size_t q1, size_t q2)
+            : def(def), q1(q1), q2(q2) {}
     };
 
     extern std::unordered_map<std::string, QDefintion> definitions;

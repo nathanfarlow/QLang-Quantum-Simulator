@@ -5,8 +5,8 @@ namespace quantum {
     std::unordered_map<std::string, QDefintion> definitions = {
 
         //Identity matrix
-        {"ID", QDefintion("ID", 1, QState({{1, 1},
-                                           {1, 1}}))},
+        {"ID", QDefintion("ID", 1, QState({{1, 0},
+                                           {0, 1}}))},
 
         //Controlled not
         {"CNOT", QDefintion("CNOT", 2, QState({{1, 0, 0, 0},
