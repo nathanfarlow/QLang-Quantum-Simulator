@@ -13,12 +13,15 @@ namespace quantum {
         size_t num_qubits_;
 
         std::vector<QOperation> operations_;
+
     public:
         QState state_;
 
         QCircuit(size_t num_qubits)
             : num_qubits_(num_qubits), state_(pow(2, num_qubits), 1) {}
 
+        //Swap two qubits
+        void Swap(QState &state, size_t q1, size_t q2);
         //Initialize qubits to all 100% 0
         void InitZero();
         //Initialize state with a string of classical bits

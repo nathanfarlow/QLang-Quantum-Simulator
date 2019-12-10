@@ -30,6 +30,7 @@ namespace quantum {
         //Pauli Z operator
         {"Z", QDefintion("Z", 1, QState({{1, 0},
                                          {0, -1}}))}
+        
     };
 
 }

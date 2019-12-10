@@ -46,7 +46,7 @@ namespace quantum {
 		operations_.push_back(operation);
 	}
 
-	QState GrowOp(const QState &op, size_t total_size, size_t op_index) {
+	QState GrowOp(const QState &op, size_t total_size, size_t op_parameters, size_t op_index) {
 
 		const QState &id = definitions["ID"].op;
 
@@ -55,27 +55,93 @@ namespace quantum {
 		if(op_index == 0)
 			ret = op;
 
-		for(size_t i = 1; i < total_size; i++) {
-			if(i == op_index)
+		for(size_t i = op_index == 0 ? op_parameters : 1; i < total_size; i++) {
+			if(i == op_index) {
 				ret = ret.tensor(op);
-			else
+				i += op_parameters - 1;
+			}
+			else {
 				ret = ret.tensor(id);
+			}
 		}
 
 		return ret;
+	}
+
+	void QCircuit::Swap(QState &state, size_t q1, size_t q2) {
+
+		if(q1 == q2)
+			return;
+
+		if(q1 > q2) {
+			Swap(state, q2, q1);
+			return;
+		}
+
+		const QState swap({{1, 0, 0, 0},
+						   {0, 0, 1, 0},
+						   {0, 1, 0, 0},
+						   {0, 0, 0, 1}});
+
+
+		//Move q2 up to q1
+		size_t current = q2;
+		while(current > q1) {
+			state = GrowOp(swap, num_qubits_, 2, current - 1) * state;
+			current--;
+		}
+
+		//Move q1 down to q2 old position
+		while(current < q2 - 1) {
+			state = GrowOp(swap, num_qubits_, 2, current + 1) * state;
+			current++;
+		}
+
 	}
 
 	QState QCircuit::Compute() {
 		if(operations_.size() == 0)
 			return state_;
 
-		QState matrix = GrowOp(definitions["ID"].op, num_qubits_, 0);
+		QState matrix = GrowOp(definitions["ID"].op, num_qubits_, 1, 0);
 
 		for(auto op : operations_) {
 			if(op.def.num_parameters == 1) {
-				matrix = GrowOp(op.def.op, num_qubits_, op.q1) * matrix;
-			} else {
+				matrix = GrowOp(op.def.op, num_qubits_, op.def.num_parameters, op.q1) * matrix;
+			} else if(op.def.num_parameters == 2) {
 
+				//Apply swap gates to apply cnot or other n ary gates
+				size_t control = op.q1;
+				size_t changer = op.q2;
+
+				bool at_bottom = false;
+
+				//If control is at the bottom, then we move it up one to
+				//fit the changer under it.
+				if(control == num_qubits_ - 1) {
+					Swap(matrix, num_qubits_ - 1, num_qubits_ - 2);
+					control--;
+					at_bottom = true;
+				}
+
+				//Put changer under control
+				//Don't double swap
+				if(!at_bottom || changer != num_qubits_ - 2)
+					Swap(matrix, control + 1, changer);
+
+				//Apply the binary operator
+				matrix = GrowOp(op.def.op, num_qubits_, op.def.num_parameters, control) * matrix;
+
+				//Swap qubits back
+				//Don't double swap
+				if(!at_bottom || changer != num_qubits_ - 2)
+					Swap(matrix, control + 1, changer);
+
+				if(at_bottom)
+					Swap(matrix, control, control + 1);
+
+			} else {
+				throw "Number of parameters > 2 not supported";
 			}
 		}
 
