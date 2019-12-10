@@ -46,12 +46,12 @@ TEST_CASE("Compute binary") {
     QCircuit c(3);
     c.Init("010");
 
-    c.AddOperation(QOperation(definitions["CNOT"], 2, 1));
+    c.AddOperation(QOperation(definitions["CNOT"], 0, 1));
 
     REQUIRE(c.Compute().ToString() == "(0,0)\n(0,0)\n(1,0)\n(0,0)\n(0,0)\n(0,0)\n(0,0)\n(0,0)");
 
     QCircuit c1(2);
     c1.Init("01");
-    c1.AddOperation(QOperation(definitions["CNOT"], 1, 0));
+    c1.AddOperation(QOperation(definitions["CNOT"], 0, 1));
     REQUIRE(c1.Compute().ToString() == "(0,0)\n(0,0)\n(0,0)\n(1,0)");
 }

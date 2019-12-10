@@ -107,12 +107,12 @@ namespace quantum {
 
 		for(auto op : operations_) {
 			if(op.def.num_parameters == 1) {
-				matrix = GrowOp(op.def.op, num_qubits_, op.def.num_parameters, op.q1) * matrix;
+				matrix = GrowOp(op.def.op, num_qubits_, op.def.num_parameters, num_qubits_ - op.q1 - 1) * matrix;
 			} else if(op.def.num_parameters == 2) {
 
 				//Apply swap gates to apply cnot or other n ary gates
-				size_t control = op.q1;
-				size_t changer = op.q2;
+				size_t control = num_qubits_ - op.q1 - 1;
+				size_t changer = num_qubits_ - op.q1 - 1;
 
 				bool at_bottom = false;
 
