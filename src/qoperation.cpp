@@ -15,8 +15,8 @@ namespace quantum {
                                                {0, 0, 1, 0}}))},
 
         //Hadamard gate
-        {"H", QDefintion("H", 1, QState({{1, -1},
-                                         {1, 1}}) * (1.0/sqrt(2)))},
+        {"H", QDefintion("H", 1, QState({{1, 1},
+                                         {1, -1}}) * (1.0/sqrt(2)))},
 
         //Pauli X operator
         //Also the not operator
@@ -30,7 +30,7 @@ namespace quantum {
         //Pauli Z operator
         {"Z", QDefintion("Z", 1, QState({{1, 0},
                                          {0, -1}}))}
-        
+
     };
 
 }
