@@ -7,25 +7,25 @@
 
 namespace quantum {
 
-    struct QDefintion {
+    struct QDefinition {
         std::string id;
         size_t num_parameters;
         QState op;
 
-        QDefintion(std::string id, size_t num_parameters, QState op)
+        QDefinition(std::string id, size_t num_parameters, QState op)
             : id(id), num_parameters(num_parameters), op(op) {}
 
-        QDefintion() : op(1, 1) {}
+        QDefinition() : op(1, 1) {}
     };
 
     struct QOperation {
-        QDefintion def;
+        QDefinition def;
         size_t q1, q2;
 
-        QOperation(QDefintion def, size_t q1, size_t q2)
+        QOperation(QDefinition def, size_t q1, size_t q2)
             : def(def), q1(q1), q2(q2) {}
     };
 
-    extern std::unordered_map<std::string, QDefintion> definitions;
+    extern std::unordered_map<std::string, QDefinition> definitions;
 
 }

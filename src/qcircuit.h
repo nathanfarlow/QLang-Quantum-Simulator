@@ -30,6 +30,8 @@ namespace quantum {
         void AddOperation(QOperation operation);
         //Compute the output state vector
         QState Compute();
+
+        size_t get_num_qubits() {return num_qubits_;}
     };
 
 }

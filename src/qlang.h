@@ -4,6 +4,7 @@
 
 namespace quantum {
     class QLangParser {
-        QCircuit compile(std::string source);
+    public:
+        QCircuit *Compile(std::string source);
     };
 }
