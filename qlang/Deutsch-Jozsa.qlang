@@ -26,6 +26,7 @@ cnot 1 2
 ;Process result by taking advantage of superposition
 ;properties to deduce state in only one execution
 ;of blackbox function
+
 h 2
 x 2
 
