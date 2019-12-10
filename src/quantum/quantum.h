@@ -2,7 +2,7 @@
 
 #include <complex>
 
-#include "matrix.h"
+#include "../matrix/matrix.h"
 
 namespace quantum {
     //Maybe we should increase precision.

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "defaultprocessor.h"
-#include "quantum.h"
+#include "../quantum/quantum.h"
 
 #include <CL/cl.h>
 

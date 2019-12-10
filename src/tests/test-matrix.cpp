@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "../matrix.h"
+#include "../matrix/matrix.h"
 
 TEST_CASE("Test constructors") {
 

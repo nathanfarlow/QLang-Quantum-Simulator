@@ -1,12 +1,12 @@
 #include "catch.hpp"
 
-#include "../openclprocessor.h"
+#include "../matrix/openclprocessor.h"
 
 using namespace quantum;
 
 TEST_CASE("Multiplication") {
 
-	auto opencl_processor = std::make_shared<OpenCLProcessor>("src/openclprocessor.kernel");
+	auto opencl_processor = std::make_shared<OpenCLProcessor>("src/matrix/openclprocessor.kernel");
 
 	QState s1({{complex(1, 3), complex(2, 2)}, {complex(3), complex(4, 1)}});
 	QState s2(s1);

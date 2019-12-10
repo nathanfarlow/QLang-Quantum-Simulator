@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "qcircuit.h"
+#include "../quantum/qcircuit.h"
 
 using namespace quantum;
 

@@ -1,18 +1,38 @@
 #include "ofApp.h"
 
-#include "qlang.h"
+#include "quantum/qlang.h"
 
 #include <bitset>
 
 using namespace quantum;
 
 ofTrueTypeFont font;
+
+std::string load(std::string file) {
+    std::ifstream in(file);
+
+    if(!in)
+        throw "Could not open qlang program file.";
+
+    std::string program;
+
+    std::string line;
+    while(std::getline(in, line))
+        program += line + "\n";
+
+    return program;
+}
+
 //--------------------------------------------------------------
 void ofApp::setup() {
     gui.setup();
     
     input.setup();
-    input.text = ";enter quantum assembly here\n\n";
+    try {
+        input.text = load("qlang/Deutsch-Jozsa.qlang");
+    } catch(...) {
+        input.text = ";enter qlang program here\n\n";
+    }
     input.bounds.x = 20;
     input.bounds.y = 20;
     input.bounds.width = 400;
