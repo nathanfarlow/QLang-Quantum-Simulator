@@ -1,7 +1,9 @@
 #pragma once
 
-namespace quantum {
-	class QLangParser {
+#include "qcircuit.h"
 
-	};
+namespace quantum {
+    class QLangParser {
+        QCircuit compile(std::string source);
+    };
 }
