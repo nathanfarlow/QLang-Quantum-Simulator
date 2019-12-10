@@ -1,0 +1,2 @@
+Algorithm based on:
+https://leftasexercise.com/2019/02/18/searching-for-balance-running-the-deutsch-jozsa-algorithm-on-ibms-q-experience/
