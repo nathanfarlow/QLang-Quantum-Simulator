@@ -1,54 +1,49 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <unordered_map>
+
+#include "quantum.h"
 
 namespace quantum {
 
-	class QOperation {
-	protected:
-		const QState &state_;
-	public:
-		QOperation(const QState &state) : state_(state) {}
-		virtual QState GenerateMatrix() = 0;
-		virtual std::string get_identifier() = 0;
-	}
+    struct QOperation {
+        std::string id;
+        size_t num_parameters;
+        QState op;
 
-	//Id gate. Preserves state.
-	class QId : public QOperation {
-		std::string get_identifier() {return "ID";}
-		QState GenerateMatrix();
-	}
+        QOperation(std::string id, size_t num_parameters, QState op)
+            : id(id), num_parameters(num_parameters), op(op) {}
+    };
 
-	//Controlled not
-	class QCNot : public QOperation {
-		std::string get_identifier() {return "CNOT";}
-		QState GenerateMatrix();
-	}
+    std::unordered_map<std::string, QOperation> operations = {
 
-	class QHadamard : public QOperation {
-		std::string get_identifier() {return "H";}
-		QState GenerateMatrix();
-	}
+        //Identity matrix
+        {"ID", QOperation("ID", 1, QState({{1, 1},
+                                           {1, 1}}))},
 
-	//Pauli X matrix
-	//Effectively a not gate.
-	class QX : public QOperation {
-		std::string get_identifier() {return "X";}
-		QState GenerateMatrix();
-	}
+        //Controlled not
+        {"CNOT", QOperation("CNOT", 2, QState({{1, 0, 0, 0},
+                                               {0, 1, 0, 0},
+                                               {0, 0, 0, 1},
+                                               {0, 0, 1, 0}}))},
 
-	//Pauli Y matrix
-	class QY : public QOperation {
-		std::string get_identifier() {return "Y";}
-		QState GenerateMatrix();
-	}
+        //Hadamard gate
+        {"H", QOperation("H", 1, QState({{1, -1},
+                                         {1, 1}}) * (1.0/sqrt(2)))},
 
-	//Pauli Z matrix
-	class QZ : public QOperation {
-		std::string get_identifier() {return "Z";}
-		QState GenerateMatrix();
-	}
+        //Pauli X operator
+        //Also the not operator
+        {"X", QOperation("X", 1, QState({{0, 1},
+                                         {1, 0}}))},
 
+        //Pauli Y operator
+        {"Y", QOperation("Y", 1, QState({{0, complex(0, -1)},
+                                         {complex(0, 1), 0}}))},
+
+        //Pauli Z operator
+        {"Z", QOperation("Z", 1, QState({{1, 0},
+                                         {0, -1}}))}
+    };
 
 }
