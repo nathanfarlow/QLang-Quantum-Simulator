@@ -1,15 +1,22 @@
 #include "ofApp.h"
+
+#include "qlang.h"
+
+#include <bitset>
+
+using namespace quantum;
+
 ofTrueTypeFont font;
 //--------------------------------------------------------------
 void ofApp::setup() {
     gui.setup();
     
     input.setup();
-    input.text = "fuck\ning\nhell";
+    input.text = ";enter quantum assembly here\n\n";
     input.bounds.x = 20;
     input.bounds.y = 20;
     input.bounds.width = 400;
-    input.bounds.height = 500;
+    input.bounds.height = 800;
     input.multiline = true;
     font.loadFont(OF_TTF_SERIF, 10);
     input.setFont(font);
@@ -21,6 +28,42 @@ void ofApp::setup() {
     output.bounds.height = input.bounds.height;
     output.multiline = true;
     output.setFont(font);
+
+    compile.setup("Compile");
+    compile.setPosition(335, 830);
+    compile.addListener(this, &ofApp::compilePressed);
+}
+
+std::string to_binary(size_t i, size_t num_qubits) {
+    std::string binary = std::bitset<64>(i).to_string();
+    return binary.substr(binary.length() - num_qubits, binary.length());
+}
+
+void ofApp::compilePressed() {
+    std::string source = input.text;
+
+    QLangParser parser;
+    QCircuit *c = nullptr;
+
+    try {
+        c = parser.Compile(input.text);
+    } catch(std::string err) {
+        output.text = err;
+    }
+
+    if(c != nullptr) {
+        QState state = c->Compute();
+
+        output.text = "";
+        for(size_t i = 0; i < state.get_rows(); i++) {
+            quantum::complex amp = state[i][0];
+            output.text += to_binary(i, c->get_num_qubits()) + ": "
+             + std::to_string(amp.real()) + "+"
+             + std::to_string(amp.imag()) + "i" 
+             + " (" + std::to_string(std::abs(amp) * std::abs(amp)) + ")"
+             + "\n";
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -38,6 +81,8 @@ void ofApp::draw() {
     ofNoFill();
     input.draw();
     output.draw();
+
+    compile.draw();
 }
 
 //--------------------------------------------------------------

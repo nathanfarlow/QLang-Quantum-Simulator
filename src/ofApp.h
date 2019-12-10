@@ -10,6 +10,8 @@ private:
 
     ofxTextInputField input;
     ofxTextInputField output;
+
+    ofxButton compile;
 public:
     void setup();
     void update();
@@ -26,5 +28,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+
+    void compilePressed();
         
 };
