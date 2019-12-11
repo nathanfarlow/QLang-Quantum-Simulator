@@ -38,7 +38,7 @@ void ofApp::setup() {
     input.bounds.width = 400;
     input.bounds.height = 800;
     input.multiline = true;
-    font.loadFont(OF_TTF_SERIF, 10);
+    font.loadFont(OF_TTF_MONO, 10);
     input.setFont(font);
 
     output.setup();

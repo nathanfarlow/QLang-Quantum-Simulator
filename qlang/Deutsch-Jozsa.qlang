@@ -17,15 +17,15 @@ h 1
 x 2
 h 2
 
-;Apply our blackbox function. This executes an xor
-;on two qubits which is a balanced function.
+;Apply our blackbox function. This executes an
+;xor on two qubits which is a balanced function.
 
 cnot 0 2
 cnot 1 2
 
-;Process result by taking advantage of superposition
-;properties to deduce state in only one execution
-;of blackbox function
+;Process result by taking advantage of
+;superposition properties to deduce state in
+;only one execution of blackbox function
 
 h 2
 x 2
