@@ -50,6 +50,12 @@ namespace quantum {
                 if(upper(words[0]) == "CIRCUIT") {
 
                     if(words.size() >= 2 && num(words[1]) > 0) {
+
+                        if(c!= nullptr) {
+                            delete c;
+                            throw "Cannot declare another circuit on line " + std::to_string(i + 1);
+                        }
+
                         c = new QCircuit(num(words[1]));
 
                         if(words.size() >= 3) {
