@@ -38,7 +38,7 @@ circuit 2
 
 ;Apply the Hadamard gate to the 0th qubit
 h 0
-;Apply the cnot with qubit 0 as the control bit anb qubit 1 as the other
+;Apply the controlled not gate with qubit 0 as the control and qubit 1 as the target
 cnot 0 1
 ```
 
