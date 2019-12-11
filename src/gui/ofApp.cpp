@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-#include "quantum/qlang.h"
+#include "../quantum/qlang.h"
 
 #include <bitset>
 
