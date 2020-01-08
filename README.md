@@ -1,6 +1,6 @@
 # QLang quantum simulator
 
-![gui](https://github.com/CS126FA19/fantastic-finale-nathanfarlow/blob/master/img/screenshot.png "GUI")
+![gui](https://github.com/nathanfarlow/QLang-Quantum-Simulator/blob/master/img/screenshot.png "GUI")
 
 # Build
 First download and setup [openFrameworks](https://openframeworks.cc/)
