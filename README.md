@@ -5,14 +5,14 @@
 # Build
 First download and setup [openFrameworks](https://openframeworks.cc/)
 ```
-git clone https://github.com/CS126FA19/fantastic-finale-nathanfarlow
-cd fantastic-finale-nathanfarlow
+git clone https://github.com/nathanfarlow/QLang-Quantum-Simulator
+cd QLang-Quantum-Simulator
 make
 ```
 
 # Run
 ```
-cd fantastic-finale-nathanfarlow
+cd QLang-Quantum-Simulator
 bin/quantum
 ```
 
